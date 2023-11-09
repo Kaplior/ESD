@@ -7,7 +7,8 @@
 #define GOAL_X 30
 #define GOAL_Y 100
 #define OBSTACLE_RADIUS 2
-#define PLAYER_RADIUS 3
+#define PLAYER_SIDE1 2
+#define PLAYER_SIDE2 3
 #define GOAL_RADIUS 4
 
 unsigned int x_position = 31;
@@ -38,8 +39,8 @@ void place_obstacles(void) {
 
 void check_collision(void) {
 	for (int i = 0; i < MAX_OBSTACLES; i++) {
-		if (abs(x_position - obstacles[i].x) < (OBSTACLE_RADIUS + PLAYER_RADIUS) &&
-		abs(y_position - obstacles[i].y) < (OBSTACLE_RADIUS + PLAYER_RADIUS)) {
+		if (abs(x_position - obstacles[i].x) < (OBSTACLE_RADIUS + PLAYER_SIDE1) &&
+		abs(y_position - obstacles[i].y) < (OBSTACLE_RADIUS + PLAYER_SIDE2)) {
 			lives--;
 			if (lives == 0) {
 				// Game over logic
@@ -57,8 +58,8 @@ void check_collision(void) {
 		}
 	}
 
-	if (abs(x_position - goal.x) < (GOAL_RADIUS + PLAYER_RADIUS) &&
-	abs(y_position - goal.y) < (GOAL_RADIUS + PLAYER_RADIUS)) {
+	if (abs(x_position - goal.x) < (GOAL_RADIUS + PLAYER_SIDE1) &&
+	abs(y_position - goal.y) < (GOAL_RADIUS + PLAYER_SIDE2)) {
 		score++;
 		//buzzer ������ �������� "����"
 		//1 ������
@@ -80,7 +81,8 @@ void check_collision(void) {
 
 void draw_game_elements(void) {
 	// Draw the player
-	GLCD_Circle(x_position, y_position, PLAYER_RADIUS);
+	//GLCD_Circle(x_position, y_position, PLAYER_RADIUS);
+	GLCD_Rectangle(x_position, y_position, PLAYER_SIDE1, PLAYER_SIDE2);
 	
 
 	// Draw the goal
